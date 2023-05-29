@@ -12,6 +12,19 @@
 
 (require 'gptel)
 
+(defgroup gptel-ext nil
+  "Extensions for gptel."
+  :group 'gptel-ext)
+
+(defvar gptel-ext-ask-document-prefix "Your task is to answer questions about the following document. If you don't know the answer, reply with \"I don't know\"\n\n###### DOCUMENT START ######\n\n"
+  "Prefix to use when asking questions about a document.")
+
+(defvar gptel-ext-ask-document-suffix "\n\n###### DOCUMENT END ######\n\n### Question: "
+  "Suffix to use when asking questions about a document.")
+
+(defvar gptel-ext-refactor-directive "You are a programmer. Refactor my code to improve readability. Reply only with the code."
+  "Directive to use when refactoring code.")
+
 ;;;###autoload
 (defun gptel-ext-send-whole-buffer ()
   "Send the whole buffer to ChatGPT."
@@ -28,11 +41,10 @@
     (gptel
      nbuf
      :initial (concat
-               "Your task is to answer questions about the following document. If you don't know the answer, reply with \"I don't know\"\n\n###### DOCUMENT START ######\n\n"
+               gptel-ext-ask-document-prefix
                (buffer-substring-no-properties (point-min) (point-max))
-               "\n\n###### DOCUMENT END ######\n\n### Question: "))
+               gptel-ext-ask-document-suffix))
     (pop-to-buffer nbuf)))
-
 
 ;; extracted from the wiki
 ;;
@@ -75,7 +87,7 @@
 ;;;###autoload
 (defun gptel-ext-refactor (bounds)
   "Refactor the region or sentence at point."
-  (gptel-ext-rewrite-and-replace bounds "You are a programmer. Refactor my code to improve readability."))
+  (gptel-ext-rewrite-and-replace bounds gptel-ext-refactor-directive))
 
 (provide 'gptel-extensions)
 
