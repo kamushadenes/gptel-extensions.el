@@ -87,6 +87,14 @@
 ;;;###autoload
 (defun gptel-ext-refactor (bounds)
   "Refactor the region or sentence at point."
+  (interactive
+   (list
+    (cond
+     ((use-region-p) (cons (region-beginning) (region-end)))
+     ((derived-mode-p 'text-mode)
+      (list (bounds-of-thing-at-point 'sentence)))
+     (t (cons (line-beginning-position) (line-end-position))))))
+  (message "Refactoring...")
   (gptel-ext-rewrite-and-replace bounds gptel-ext-refactor-directive))
 
 (provide 'gptel-extensions)
