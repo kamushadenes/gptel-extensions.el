@@ -31,11 +31,11 @@ Send the whole buffer to ChatGPT.
 
 Load the current buffer into a session so you can ask questions about it.
 
-### `gptel-ext-rewrite-and-replace (bounds &optional directive)`
+### `gptel-ext-rewrite-and-replace`
 
-Rewrite the region or sentence at point and replace it with the response.
+Rewrite the region or sentence at point and replace it with the response. Extracted from the [Wiki](https://github.com/karthink/gptel/wiki).
 
-### `gptel-ext-refactor (bounds)`
+### `gptel-ext-refactor`
 
 Refactor the region or sentence at point.
 
