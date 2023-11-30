@@ -7,7 +7,7 @@ Extra functions for [gptel](https://github.com/karthink/gptel), a package that a
 1. Clone the repository to a local directory with:
 
    ```
-   git clone https://github.com/kamushadenes/gptel-extensions.git
+   git clone https://github.com/kamushadenes/gptel-extensions.el.git
    ```
 
 2. Add the following to your Emacs init file (usually `~/.emacs` or `~/.emacs.d/init.el`):
