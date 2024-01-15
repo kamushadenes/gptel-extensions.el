@@ -23,25 +23,25 @@ Extra functions for [gptel](https://github.com/karthink/gptel), a package that a
 
 ## Functions
 
-### `gptel-ext-send-whole-buffer`
+### `gptel-extensions-send-whole-buffer`
 
 Send the whole buffer to ChatGPT.
 
-### `gptel-ext-ask-document`
+### `gptel-extensions-ask-document`
 
 Load the current buffer into a session so you can ask questions about it.
 
-### `gptel-ext-rewrite-and-replace`
+### `gptel-extensions-rewrite-and-replace`
 
 Rewrite the region or sentence at point and replace it with the response. Extracted from the [Wiki](https://github.com/karthink/gptel/wiki).
 
-### `gptel-ext-refactor`
+### `gptel-extensions-refactor`
 
 Refactor the region or sentence at point.
 
 ## Variables
 
-### `gptel-ext-ask-document-prefix`
+### `gptel-extensions-ask-document-prefix`
 
 Prefix to use when asking questions about a document. Defaults to:
 
@@ -52,7 +52,7 @@ Your task is to answer questions about the following document. If you don't know
 
 ```
 
-### `gptel-ext-ask-document-suffix`
+### `gptel-extensions-ask-document-suffix`
 
 Suffix to use when asking questions about a document. Defaults to:
 
@@ -63,7 +63,7 @@ Suffix to use when asking questions about a document. Defaults to:
 ### Question: 
 ```
 
-### `gptel-ext-refactor-directive`
+### `gptel-extensions-refactor-directive`
 
 Directive to use when refactoring code. Defaults to:
 

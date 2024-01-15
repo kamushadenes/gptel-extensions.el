@@ -2,12 +2,29 @@
 
 ;; Author: Henrique Goncalves <kamus@hadenes.io>
 ;; URL: https://github.com/kamushadenes
-;; Version: 0.0.1
+;; Version: 0.0.2
+;; Package-Requires: ((gptel "0.3.6"))
+;; Keywords: gpt, ai, openai, gptel
+
+;; SPDX-License-Identifier: GPL-3.0-or-later
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
+
 ;; Extend gptel with some extra functions
-;;
+
 ;;; Code:
 
 (require 'gptel)
@@ -16,17 +33,17 @@
   "Extensions for gptel."
   :group 'gptel-ext)
 
-(defvar gptel-ext-ask-document-prefix "Your task is to answer questions about the following document. If you don't know the answer, reply with \"I don't know\"\n\n###### DOCUMENT START ######\n\n"
+(defvar gptel-extensions-ask-document-prefix "Your task is to answer questions about the following document. If you don't know the answer, reply with \"I don't know\"\n\n###### DOCUMENT START ######\n\n"
   "Prefix to use when asking questions about a document.")
 
-(defvar gptel-ext-ask-document-suffix "\n\n###### DOCUMENT END ######\n\n### Question: "
+(defvar gptel-extensions-ask-document-suffix "\n\n###### DOCUMENT END ######\n\n### Question: "
   "Suffix to use when asking questions about a document.")
 
-(defvar gptel-ext-refactor-directive "You are a programmer. Refactor my code to improve readability. Reply only with the code."
+(defvar gptel-extensions-refactor-directive "You are a programmer. Refactor my code to improve readability. Reply only with the code."
   "Directive to use when refactoring code.")
 
 ;;;###autoload
-(defun gptel-ext-send-whole-buffer ()
+(defun gptel-extensions-send-whole-buffer ()
   "Send the whole buffer to ChatGPT."
   (interactive)
   (mark-whole-buffer)
@@ -34,23 +51,25 @@
   (gptel-send))
 
 ;;;###autoload
-(defun gptel-ext-ask-document ()
+(defun gptel-extensions-ask-document ()
   "Loads the current buffer into a session so you can ask questions about it."
   (interactive)
   (let ((nbuf (concat "Ask: " (buffer-name (current-buffer)))))
     (gptel
      nbuf
      :initial (concat
-               gptel-ext-ask-document-prefix
+               gptel-extensions-ask-document-prefix
                (buffer-substring-no-properties (point-min) (point-max))
-               gptel-ext-ask-document-suffix))
+               gptel-extensions-ask-document-suffix))
     (pop-to-buffer nbuf)))
 
 ;; extracted from the wiki
 ;;
 ;;;###autoload
-(defun gptel-ext-rewrite-and-replace (bounds &optional directive)
-  "Rewrite the region or sentence at point and replace it with the response."
+(defun gptel-extensions-rewrite-and-replace (bounds &optional directive)
+  "Rewrite the region or sentence at point and replace it with the response.
+
+BOUNDS is a cons cell where the car is the beginning and the cdr is the end of the region to be rewritten."
   (interactive
    (list
     (cond
@@ -85,8 +104,10 @@
              (message "Rewrote line. Original line saved to kill-ring."))))))))
 
 ;;;###autoload
-(defun gptel-ext-refactor (bounds)
-  "Refactor the region or sentence at point."
+(defun gptel-extensions-refactor (bounds)
+  "Refactor the region or sentence at point.
+
+BOUNDS is a cons cell where the car is the beginning and the cdr is the end of the region to be refactored."
   (interactive
    (list
     (cond
@@ -95,7 +116,7 @@
       (list (bounds-of-thing-at-point 'sentence)))
      (t (cons (line-beginning-position) (line-end-position))))))
   (message "Refactoring...")
-  (gptel-ext-rewrite-and-replace bounds gptel-ext-refactor-directive))
+  (gptel-extensions-rewrite-and-replace bounds gptel-extensions-refactor-directive))
 
 (provide 'gptel-extensions)
 
